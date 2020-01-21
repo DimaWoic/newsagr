@@ -1,0 +1,13 @@
+{% extends "news/layout/base.html" %}
+
+{% block title %} {{ current_category.name }} {% endblock %}
+
+{% block content %}
+{% for n in news %}
+
+<p><h6><small class="text-muted">{{n.published|date:"H:i" }}</small> <a href="{{n.url_source}}" target=_blank style="text-decoration-color: black;"><img src="#" alt="В" class="img-thumbnail"> {{n.title}} </a></h6> </p >
+<p><h6>{{ n.category }}</h6></p>
+
+{% endfor %}
+
+{% endblock %}
