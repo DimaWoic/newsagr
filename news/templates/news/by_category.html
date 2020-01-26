@@ -4,10 +4,16 @@
 
 {% block content %}
 {% for n in news %}
-
-<p><h6><small class="text-muted">{{n.published|date:"H:i" }}</small> <a href="{{n.url_source}}" target=_blank style="text-decoration-color: black;"><img src="#" alt="В" class="img-thumbnail"> {{n.title}} </a></h6> </p >
-<p><h6>{{ n.category }}</h6></p>
-
+<div>
+    <div class="media border-bottom mb-4">
+        <img class="align-self-start mr-4 rounded" src="{{n.icon}}" alt="image" height="60" width="60">
+        <div class="media-body">
+          <h6 class="mt-0"><a href="{{n.url_source}}" target=_blank class="text-dark">{{n.title}}</a></h6>
+          <p><h6><a class="text-muted" href="{% url 'by_category' n.category.pk %}">{{ n.category }}</a></h6></p>
+          <p class="mb-4 text-muted">{{n.published|date:"d.m.Y H:i" }}</p>
+        </div>
+      </div>
+    </div>
 {% endfor %}
 
 {% endblock %}
