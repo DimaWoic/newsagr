@@ -1,6 +1,9 @@
-from django.shortcuts import render, HttpResponse
-from django.views.generic.base import TemplateView
+from django.shortcuts import render
+from django.http import JsonResponse
 from .models import News, Category
+from .serializers import NewsSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 
 def by_category(request, category_id):
@@ -16,3 +19,10 @@ def index(request):
     categories = Category.objects.all()
     context = {'news': news, 'categories': categories}
     return render(request, 'news/index.html', context)
+
+@api_view(['GET'])
+def api_news(request):
+    if request.method == 'GET':
+        news = News.objects.all()
+        serializer = NewsSerializer(news, many=True)
+        return Response(serializer.data)
